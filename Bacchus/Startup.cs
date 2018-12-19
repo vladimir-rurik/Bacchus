@@ -77,8 +77,11 @@ namespace Bacchus
 			// auto create the database
 			using( var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope() )
 			{
-				var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-				context.Database.EnsureCreated();
+				ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+				if( !context.Database.EnsureCreated() )
+				{
+					context.Database.Migrate();
+				}
 			}
 
 		}
