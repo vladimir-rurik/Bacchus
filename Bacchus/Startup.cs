@@ -26,7 +26,8 @@ namespace Bacchus
 			services.AddDbContext<ApplicationDbContext>( options =>
 				 options.UseSqlServer(
 					 Configuration["Data:Bacchus:ConnectionString"] ) );
-			services.AddTransient<IProductRepository, FakeProductRepository>();
+			services.AddHttpClient<IUptimeAuctionApiClient, UptimeAuctionApiClient>();
+			services.AddTransient<IProductRepository, EFProductRepository>();
 			services.AddMvc();
 			services.AddMemoryCache();
 			services.AddSession();
@@ -72,6 +73,13 @@ namespace Bacchus
 
 				routes.MapRoute( name: null, template: "{controller}/{action}/{id?}" );
 			} );
+
+			// auto create the database
+			using( var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope() )
+			{
+				var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+				context.Database.EnsureCreated();
+			}
 
 		}
 	}

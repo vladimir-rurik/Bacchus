@@ -12,5 +12,10 @@ namespace Bacchus.Models
 			new Product { ProductName = "Surf board", ProductCategory = "Sports", ProductDescription = "Kickass surf board", BiddingEndDate = DateTime.Now.AddMinutes(1) },
 			new Product { ProductName = "Running shoes", ProductCategory = "Clothing", ProductDescription = "Nike running shoes", BiddingEndDate = DateTime.Now.AddHours(2) }
 		}.AsQueryable<Product>();
+
+		public void UpsertProducts( List<Product> products )
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

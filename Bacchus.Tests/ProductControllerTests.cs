@@ -29,7 +29,7 @@ namespace Bacchus.Tests {
 
             // Act
             ProductsListViewModel result =
-                controller.List(null, 2).ViewData.Model as ProductsListViewModel;
+                controller.ListAsync(null, 2).ViewData.Model as ProductsListViewModel;
 
             // Assert
             Product[] prodArray = result.Products.ToArray();
@@ -57,7 +57,7 @@ namespace Bacchus.Tests {
 
             // Act
             ProductsListViewModel result =
-                controller.List(null, 2).ViewData.Model as ProductsListViewModel;
+                controller.ListAsync(null, 2).ViewData.Model as ProductsListViewModel;
 
             // Assert
             PagingInfo pageInfo = result.PagingInfo;
@@ -87,7 +87,7 @@ namespace Bacchus.Tests {
 
             // Action
             Product[] result =
-                (controller.List("Cat2", 1).ViewData.Model as ProductsListViewModel)
+                (controller.ListAsync("Cat2", 1).ViewData.Model as ProductsListViewModel)
                     .Products.ToArray();
 
             // Assert
@@ -115,10 +115,10 @@ namespace Bacchus.Tests {
                 result?.ViewData?.Model as ProductsListViewModel;
 
             // Action
-            int? res1 = GetModel(target.List("Cat1"))?.PagingInfo.TotalItems;
-            int? res2 = GetModel(target.List("Cat2"))?.PagingInfo.TotalItems;
-            int? res3 = GetModel(target.List("Cat3"))?.PagingInfo.TotalItems;
-            int? resAll = GetModel(target.List(null))?.PagingInfo.TotalItems;
+            int? res1 = GetModel(target.ListAsync("Cat1"))?.PagingInfo.TotalItems;
+            int? res2 = GetModel(target.ListAsync("Cat2"))?.PagingInfo.TotalItems;
+            int? res3 = GetModel(target.ListAsync("Cat3"))?.PagingInfo.TotalItems;
+            int? resAll = GetModel(target.ListAsync(null))?.PagingInfo.TotalItems;
 
             // Assert
             Assert.Equal(2, res1);
