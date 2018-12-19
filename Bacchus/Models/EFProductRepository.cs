@@ -23,21 +23,18 @@ namespace Bacchus.Models {
 
 		private void UpsertProduct( Product product )
 		{
-			if( string.IsNullOrEmpty( product.ProductID ) )
+			Product dbEntry = _context.Products
+				.FirstOrDefault( p => p.ProductID == product.ProductID );
+			if( dbEntry != null )
 			{
-				_context.Products.Add( product );
+				dbEntry.ProductName = product.ProductName;
+				dbEntry.ProductDescription = product.ProductDescription;
+				dbEntry.ProductCategory = product.ProductCategory;
+				dbEntry.BiddingEndDate = product.BiddingEndDate;
 			}
 			else
 			{
-				Product dbEntry = _context.Products
-					.FirstOrDefault( p => p.ProductID == product.ProductID );
-				if( dbEntry != null )
-				{
-					dbEntry.ProductName = product.ProductName;
-					dbEntry.ProductDescription = product.ProductDescription;
-					dbEntry.ProductCategory = product.ProductCategory;
-					dbEntry.BiddingEndDate = product.BiddingEndDate;
-				}
+				_context.Products.Add( product );
 			}
 		}
 	}
