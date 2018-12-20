@@ -28,7 +28,7 @@ namespace Bacchus.Models
 		public string BidderLastName { get; set; }
 
 		[AssertThat( "BidderBid > 0", ErrorMessage = "Please make your bid greater than zero.")]
-		public int BidderBid { get; set; }
+		public double BidderBid { get; set; }
 
 		[NotMapped]
 		public DateTime BiddingDateTime { get; set; }
