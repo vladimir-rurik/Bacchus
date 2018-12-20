@@ -1,6 +1,6 @@
 # Introduction
 
-Create a web application, “Bacchus”, in which you can see the current auctions and make a bid.
+A web application, “Bacchus”, in which you can see the current auctions and make a bid.
 
 
 # Task description and requirements
@@ -11,15 +11,14 @@ At this very moment, auction products could be queried from a web address [http:
 
 In addition, the application should present dynamic menus that work like a filter to show/hide products by category. Each menu item is a category ( API name: `productCategory` ) and shows/hides products under this category. The menu should not contain categories that don’t have any products.If a category menu item is chosen the products beyond the category are hidden. On the menu filter, there should be a “reset” option which clears the chosen category and shows all active product offers.
 
-After an auction is finished, the winner’s name should not be shown, but their results with bidding histories should be saved
+After an auction is finished, the winner’s name should not be shown, but their saved results with bidding histories should be accessible.
 
 
 # Additional information
 
-After an auction is finished, the winner’s name should not be shown, but their saved results with bidding histories should be accessible.
+The resolved task is presented with the following execution requirements and a short explanation of how the application could be run.
 
-
-# Requirements
+# Execution requirements
 
 - Visual Studio 2017 to see and debug the code.
 - MS Server 2017 Express LocalDB to hold a database named Bacchus.
