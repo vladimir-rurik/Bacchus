@@ -1,0 +1,14 @@
+[
+	{
+		"outputFileName": "wwwroot/js/bundle.js",
+		"inputFiles": [
+			"wwwroot/lib/jquery/dist/jquery.js",
+			"wwwroot/lib/countdown/dist/countdown.js"
+		],
+		"minify": {
+			"enabled": true,
+			"renameLocals": true
+		},
+		"sourceMap": false
+	}
+]

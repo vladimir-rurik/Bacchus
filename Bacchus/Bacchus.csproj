@@ -18,6 +18,7 @@
     <Folder Include="Models\ViewModels\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="Views\Product\" />
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
   <ItemGroup>

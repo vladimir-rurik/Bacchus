@@ -1,0 +1,14 @@
+{
+  "name": "countdown",
+  "homepage": "https://github.com/fengyuanchen/countdown",
+  "version": "0.1.1",
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.1",
+    "commit": "40b262c0be6940f425b36fa183d9ee5b4bf5b347"
+  },
+  "_source": "https://github.com/fengyuanchen/countdown.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/fengyuanchen/countdown.git"
+}
