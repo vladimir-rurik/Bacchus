@@ -9,7 +9,14 @@ namespace Bacchus.Controllers
 {
     public class BidController : Controller
     {
-        public ViewResult PlaceBid( string ProductID, string ProductName )
+		private IBidRepository _repository;
+
+		public BidController( IBidRepository repo )
+		{
+			_repository = repo;
+		}
+
+		public ViewResult PlaceBid( string ProductID, string ProductName )
         {
             return View( new Bid() { ProductName = ProductName } );
         }
@@ -19,7 +26,8 @@ namespace Bacchus.Controllers
 		{
 			if( ModelState.IsValid )
 			{
-				//repository.SaveBid( bid );
+				_repository.SaveBid( bid );
+
 				return RedirectToAction( "List", "Product" );
 			}
 			else

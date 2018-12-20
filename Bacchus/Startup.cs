@@ -30,6 +30,7 @@ namespace Bacchus
 					 Configuration["Data:Bacchus:ConnectionString"] ) );
 			services.AddHttpClient<IUptimeAuctionApiClient, UptimeAuctionApiClient>();
 			services.AddTransient<IProductRepository, EFProductRepository>();
+			services.AddTransient<IBidRepository, EFBidRepository>();
 			services.AddMvc();
 			services.AddMemoryCache();
 			services.AddSession();

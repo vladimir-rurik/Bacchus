@@ -10,7 +10,8 @@ namespace Bacchus.Models {
             : base(options) { }
 
         public DbSet<Product> Products { get; set; }
-    }
+		public DbSet<Bid> Bids { get; set; }
+	}
 
     public class ApplicationDbContextFactory
             : IDesignTimeDbContextFactory<ApplicationDbContext> {
