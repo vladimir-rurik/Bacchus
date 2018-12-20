@@ -4,6 +4,7 @@ using System.Linq;
 using Bacchus.Models.ViewModels;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System;
 
 namespace Bacchus.Controllers {
 
@@ -26,7 +27,7 @@ namespace Bacchus.Controllers {
 			ProductsListViewModel productsListViewModel = new ProductsListViewModel
 			{
 				Products = _repository.Products
-					.Where( p => category == null || p.ProductCategory == category )
+					.Where( p => ( category == null || p.ProductCategory == category ) && p.BiddingEndDate > DateTime.Now.AddHours( -3 ) )
 					.OrderBy( p => p.ProductID )
 					.Skip( ( productPage - 1 ) * PageSize )
 					.Take( PageSize ),
@@ -35,9 +36,10 @@ namespace Bacchus.Controllers {
 					CurrentPage = productPage,
 					ItemsPerPage = PageSize,
 					TotalItems = category == null ?
-						_repository.Products.Count() :
 						_repository.Products.Where( e =>
-							 e.ProductCategory == category ).Count()
+							 e.BiddingEndDate > DateTime.Now.AddHours( -3 ) ).Count() :
+						_repository.Products.Where( e =>
+							 e.ProductCategory == category && e.BiddingEndDate > DateTime.Now.AddHours( -3 ) ).Count()
 				},
 				CurrentCategory = category
 			};

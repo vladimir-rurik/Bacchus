@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -78,9 +80,9 @@ namespace Bacchus
 			using( var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope() )
 			{
 				ApplicationDbContext context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-				if( !context.Database.EnsureCreated() )
+				if( !( context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator ).Exists()  )
 				{
-					context.Database.Migrate();
+					context.Database.EnsureCreated();
 				}
 			}
 

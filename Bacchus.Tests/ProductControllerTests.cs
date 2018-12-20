@@ -16,6 +16,7 @@ namespace Bacchus.Tests {
         public void Can_Paginate() {
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
+			Mock<IUptimeAuctionApiClient> mock_http_client = new Mock<IUptimeAuctionApiClient>();
             mock.Setup(m => m.Products).Returns((new Product[] {
                 new Product {ProductID = "1", ProductName = "P1"},
                 new Product {ProductID = "2", ProductName = "P2"},
@@ -24,7 +25,7 @@ namespace Bacchus.Tests {
                 new Product {ProductID = "5", ProductName = "P5"}
             }).AsQueryable<Product>());
 
-            ProductController controller = new ProductController(mock.Object);
+            ProductController controller = new ProductController(mock.Object, mock_http_client.Object);
             controller.PageSize = 3;
 
             // Act

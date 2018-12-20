@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Infrastructure\" />
     <Folder Include="Components\" />
     <Folder Include="Models\ViewModels\" />
@@ -22,8 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ExpressiveAnnotationsCore.dll" Version="0.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.1" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
