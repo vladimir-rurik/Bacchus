@@ -16,4 +16,16 @@ After an auction is finished, the winner’s name should not be shown, but their
 
 # Additional information
 
-Present the resolved task with a short step by step explanation or installation description of how the application could be run.
+After an auction is finished, the winner’s name should not be shown, but their saved results with bidding histories should be accessible.
+
+
+# Requirements
+
+- Visual Studio 2017 to see and debug the code.
+- MS Server 2017 Express LocalDB to hold a database named Bacchus.
+
+
+# Short explanation
+
+The database will be created automatically only once after the first launch of the application, causing a short delay before showing the first web page.
+
