@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Bacchus.Models;
+using System;
 
 namespace Bacchus.Components {
 
@@ -13,10 +14,12 @@ namespace Bacchus.Components {
 
         public IViewComponentResult Invoke() {
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(repository.Products
-                .Select(x => x.ProductCategory)
+            return View( repository.Products
+				.Where( x => x.BiddingEndDate > DateTime.Now.ToUniversalTime() )
+                .Select( x => x.ProductCategory )
                 .Distinct()
-                .OrderBy(x => x));
+                .OrderBy( x => x ) 
+				);
         }
     }
 }

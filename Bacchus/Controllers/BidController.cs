@@ -9,9 +9,9 @@ namespace Bacchus.Controllers
 {
     public class BidController : Controller
     {
-        public ViewResult PlaceBid()
+        public ViewResult PlaceBid( string ProductID, string ProductName )
         {
-            return View( new Bid() );
+            return View( new Bid() { ProductName = ProductName } );
         }
 
 		[HttpPost]

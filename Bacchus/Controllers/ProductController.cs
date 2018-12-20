@@ -11,7 +11,8 @@ namespace Bacchus.Controllers {
     public class ProductController : Controller {
 		private readonly IUptimeAuctionApiClient _uptimeAuctionApiClient;
         private IProductRepository _repository;
-        public int PageSize = 4;
+
+        public const int PAGESIZE = 4;
 
         public ProductController(IProductRepository repo, IUptimeAuctionApiClient uptimeAuctionApiClient) {
             _repository = repo;
@@ -27,19 +28,19 @@ namespace Bacchus.Controllers {
 			ProductsListViewModel productsListViewModel = new ProductsListViewModel
 			{
 				Products = _repository.Products
-					.Where( p => ( category == null || p.ProductCategory == category ) && p.BiddingEndDate > DateTime.Now.AddHours( -3 ) )
+					.Where( p => ( category == null || p.ProductCategory == category ) && p.BiddingEndDate > DateTime.Now.ToUniversalTime() )
 					.OrderBy( p => p.ProductID )
-					.Skip( ( productPage - 1 ) * PageSize )
-					.Take( PageSize ),
+					.Skip( ( productPage - 1 ) * PAGESIZE )
+					.Take( PAGESIZE ),
 				PagingInfo = new PagingInfo
 				{
 					CurrentPage = productPage,
-					ItemsPerPage = PageSize,
+					ItemsPerPage = PAGESIZE,
 					TotalItems = category == null ?
 						_repository.Products.Where( e =>
-							 e.BiddingEndDate > DateTime.Now.AddHours( -3 ) ).Count() :
+							 e.BiddingEndDate > DateTime.Now.ToUniversalTime() ).Count() :
 						_repository.Products.Where( e =>
-							 e.ProductCategory == category && e.BiddingEndDate > DateTime.Now.AddHours( -3 ) ).Count()
+							 e.ProductCategory == category && e.BiddingEndDate > DateTime.Now.ToUniversalTime() ).Count()
 				},
 				CurrentCategory = category
 			};

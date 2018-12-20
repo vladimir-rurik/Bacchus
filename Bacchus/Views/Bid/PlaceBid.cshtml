@@ -2,17 +2,19 @@
 @model Bid
 
 <h2>Bidding</h2>
-<p>Please place your bid</p>
+<p>Please place your bid on</p>
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form asp-action="PlaceBid" method="post">
-	<h3>Name</h3>
 	<div class="form-group">
-		<label>First Name:</label><input asp-for="BidderFirstName" class="form-control" />
+		<label>Product Name:</label><input asp-for="ProductName" class="form-control" readonly/>
 	</div>
 	<div class="form-group">
-		<label>Last Name:</label><input asp-for="BidderLastName" class="form-control" />
+		<label>Your First Name:</label><input asp-for="BidderFirstName" class="form-control" />
+	</div>
+	<div class="form-group">
+		<label>Your Last Name:</label><input asp-for="BidderLastName" class="form-control" />
 	</div>
 	<h3>Bid amount</h3>
 	<div class="form-group">

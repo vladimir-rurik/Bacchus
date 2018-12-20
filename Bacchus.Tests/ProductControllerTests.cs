@@ -26,7 +26,7 @@ namespace Bacchus.Tests {
             }).AsQueryable<Product>());
 
             ProductController controller = new ProductController(mock.Object, mock_http_client.Object);
-            controller.PageSize = 3;
+            controller.PAGESIZE = 3;
 
             // Act
             ProductsListViewModel result =
@@ -54,7 +54,7 @@ namespace Bacchus.Tests {
 
             // Arrange
             ProductController controller =
-                new ProductController(mock.Object) { PageSize = 3 };
+                new ProductController(mock.Object) { PAGESIZE = 3 };
 
             // Act
             ProductsListViewModel result =
@@ -84,7 +84,7 @@ namespace Bacchus.Tests {
 
             // Arrange - create a controller and make the page size 3 items
             ProductController controller = new ProductController(mock.Object);
-            controller.PageSize = 3;
+            controller.PAGESIZE = 3;
 
             // Action
             Product[] result =
@@ -110,7 +110,7 @@ namespace Bacchus.Tests {
 			} ).AsQueryable<Product>());
 
             ProductController target = new ProductController(mock.Object);
-            target.PageSize = 3;
+            target.PAGESIZE = 3;
 
             Func<ViewResult, ProductsListViewModel> GetModel = result =>
                 result?.ViewData?.Model as ProductsListViewModel;
