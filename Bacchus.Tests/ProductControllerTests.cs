@@ -7,30 +7,32 @@ using Xunit;
 using Bacchus.Models.ViewModels;
 using System;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Bacchus.Tests {
 
     public class ProductControllerTests {
 
         [Fact]
-        public void Can_Paginate() {
+        public async Task Can_PaginateAsync() {
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
 			Mock<IUptimeAuctionApiClient> mock_http_client = new Mock<IUptimeAuctionApiClient>();
+
             mock.Setup(m => m.Products).Returns((new Product[] {
-                new Product {ProductId = "1", ProductName = "P1"},
-                new Product {ProductId = "2", ProductName = "P2"},
-                new Product {ProductId = "3", ProductName = "P3"},
-                new Product {ProductId = "4", ProductName = "P4"},
-                new Product {ProductId = "5", ProductName = "P5"}
-            }).AsQueryable<Product>());
+                new Product {ProductId = "1", ProductName = "P1", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "2", ProductName = "P2", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "3", ProductName = "P3", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "4", ProductName = "P4", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "5", ProductName = "P5", BiddingEndDate = DateTime.Now.AddHours(3)}
+			} ).AsQueryable<Product>());
 
             ProductController controller = new ProductController(mock.Object, mock_http_client.Object);
             controller.PAGESIZE = 3;
 
-            // Act
-            ProductsListViewModel result =
-                controller.ListAsync(null, 2).ViewData.Model as ProductsListViewModel;
+			// Act
+			ViewResult oViewResult = await controller.List( null, 2 ) as ViewResult;
+			ProductsListViewModel result = oViewResult.ViewData.Model as ProductsListViewModel;
 
             // Assert
             Product[] prodArray = result.Products.ToArray();
@@ -40,25 +42,27 @@ namespace Bacchus.Tests {
         }
 
         [Fact]
-        public void Can_Send_Pagination_View_Model() {
+        public async Task Can_Send_Pagination_View_ModelAsync() {
 
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns((new Product[] {
-				new Product {ProductId = "1", ProductName = "P1"},
-				new Product {ProductId = "2", ProductName = "P2"},
-				new Product {ProductId = "3", ProductName = "P3"},
-				new Product {ProductId = "4", ProductName = "P4"},
-				new Product {ProductId = "5", ProductName = "P5"}
+			Mock<IUptimeAuctionApiClient> mock_http_client = new Mock<IUptimeAuctionApiClient>();
+
+			mock.Setup(m => m.Products).Returns((new Product[] {
+				new Product {ProductId = "1", ProductName = "P1", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "2", ProductName = "P2", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "3", ProductName = "P3", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "4", ProductName = "P4", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "5", ProductName = "P5", BiddingEndDate = DateTime.Now.AddHours(3)}
 			} ).AsQueryable<Product>());
 
             // Arrange
             ProductController controller =
-                new ProductController(mock.Object) { PAGESIZE = 3 };
+                new ProductController(mock.Object, mock_http_client.Object ) { PAGESIZE = 3 };
 
             // Act
-            ProductsListViewModel result =
-                controller.ListAsync(null, 2).ViewData.Model as ProductsListViewModel;
+			ViewResult oViewResult = await controller.List( null, 2 ) as ViewResult;
+			ProductsListViewModel result = oViewResult.ViewData.Model as ProductsListViewModel;
 
             // Assert
             PagingInfo pageInfo = result.PagingInfo;
@@ -69,27 +73,28 @@ namespace Bacchus.Tests {
         }
 
         [Fact]
-        public void Can_Filter_Products() {
+        public async Task Can_Filter_ProductsAsync() {
 
             // Arrange
             // - create the mock repository
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns((new Product[] {
-                new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Cat1"},
-                new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Cat2"},
-                new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Cat1"},
-                new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Cat2"},
-                new Product {ProductId = "5", ProductName = "P5", ProductCategory = "Cat3"}
-            }).AsQueryable<Product>());
+			Mock<IUptimeAuctionApiClient> mock_http_client = new Mock<IUptimeAuctionApiClient>();
 
-            // Arrange - create a controller and make the page size 3 items
-            ProductController controller = new ProductController(mock.Object);
-            controller.PAGESIZE = 3;
+			mock.Setup(m => m.Products).Returns((new Product[] {
+                new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Cat1", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Cat2", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Cat1", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Cat2", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "5", ProductName = "P5", ProductCategory = "Cat3", BiddingEndDate = DateTime.Now.AddHours(3)}
+			} ).AsQueryable<Product>());
 
-            // Action
-            Product[] result =
-                (controller.ListAsync("Cat2", 1).ViewData.Model as ProductsListViewModel)
-                    .Products.ToArray();
+			// Arrange - create a controller and make the page size 3 items
+			ProductController controller = new ProductController( mock.Object, mock_http_client.Object );
+			controller.PAGESIZE = 3;
+
+			// Action
+			ViewResult oViewResult = await controller.List( "Cat2", 1 ) as ViewResult;
+			Product[] result = (oViewResult.ViewData.Model as ProductsListViewModel).Products.ToArray();
 
             // Assert
             Assert.Equal(2, result.Length);
@@ -98,28 +103,37 @@ namespace Bacchus.Tests {
         }
 
         [Fact]
-        public void Generate_Category_Specific_Product_Count() {
+        public async Task Generate_Category_Specific_Product_CountAsync() {
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns((new Product[] {
-				new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Cat1"},
-				new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Cat2"},
-				new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Cat1"},
-				new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Cat2"},
-				new Product {ProductId = "5", ProductName = "P5", ProductCategory = "Cat3"}
+			Mock<IUptimeAuctionApiClient> mock_http_client = new Mock<IUptimeAuctionApiClient>();
+
+			mock.Setup(m => m.Products).Returns((new Product[] {
+				new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Cat1", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Cat2", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Cat1", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Cat2", BiddingEndDate = DateTime.Now.AddHours(3)},
+				new Product {ProductId = "5", ProductName = "P5", ProductCategory = "Cat3", BiddingEndDate = DateTime.Now.AddHours(3)}
 			} ).AsQueryable<Product>());
 
-            ProductController target = new ProductController(mock.Object);
+			ProductController target = new ProductController( mock.Object, mock_http_client.Object );
             target.PAGESIZE = 3;
 
             Func<ViewResult, ProductsListViewModel> GetModel = result =>
                 result?.ViewData?.Model as ProductsListViewModel;
 
-            // Action
-            int? res1 = GetModel(target.ListAsync("Cat1"))?.PagingInfo.TotalItems;
-            int? res2 = GetModel(target.ListAsync("Cat2"))?.PagingInfo.TotalItems;
-            int? res3 = GetModel(target.ListAsync("Cat3"))?.PagingInfo.TotalItems;
-            int? resAll = GetModel(target.ListAsync(null))?.PagingInfo.TotalItems;
+			// Action
+			ViewResult oViewResult1 = await target.List( "Cat1" ) as ViewResult;
+			int? res1 = GetModel( oViewResult1 )?.PagingInfo.TotalItems;
+
+			ViewResult oViewResult2 = await target.List( "Cat2" ) as ViewResult;
+			int? res2 = GetModel( oViewResult2 )?.PagingInfo.TotalItems;
+
+			ViewResult oViewResult3 = await target.List( "Cat3" ) as ViewResult;
+			int? res3 = GetModel( oViewResult3 )?.PagingInfo.TotalItems;
+
+			ViewResult oViewResultAll = await target.List( null ) as ViewResult;
+            int? resAll = GetModel(oViewResultAll)?.PagingInfo.TotalItems;
 
             // Assert
             Assert.Equal(2, res1);

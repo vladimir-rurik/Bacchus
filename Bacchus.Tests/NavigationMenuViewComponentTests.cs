@@ -7,6 +7,7 @@ using Bacchus.Models;
 using Xunit;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Routing;
+using System;
 
 namespace Bacchus.Tests {
 
@@ -17,10 +18,10 @@ namespace Bacchus.Tests {
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[] {
-                new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Apples"},
-                new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Apples"},
-                new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Plums"},
-                new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Oranges"},
+                new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Apples", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Apples", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Plums", BiddingEndDate = DateTime.Now.AddHours(3)},
+                new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Oranges", BiddingEndDate = DateTime.Now.AddHours(3)},
             }).AsQueryable<Product>());
 
             NavigationMenuViewComponent target =
