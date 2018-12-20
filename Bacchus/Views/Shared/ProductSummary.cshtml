@@ -9,9 +9,9 @@
             </span>
         </h4>
     </div>
-    <form id="@Model.ProductID" asp-action="PlaceBid"
+    <form id="@Model.ProductId" asp-action="PlaceBid"
           asp-controller="Bid" method="get">
-        <input type="hidden" asp-for="ProductID" />
+        <input type="hidden" asp-for="ProductId" />
         <input type="hidden" asp-for="ProductName" />
         <span class="card-text p-1">
             @Model.ProductDescription

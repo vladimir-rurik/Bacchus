@@ -17,10 +17,10 @@ namespace Bacchus.Tests {
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[] {
-                new Product {ProductID = "1", ProductName = "P1", ProductCategory = "Apples"},
-                new Product {ProductID = "2", ProductName = "P2", ProductCategory = "Apples"},
-                new Product {ProductID = "3", ProductName = "P3", ProductCategory = "Plums"},
-                new Product {ProductID = "4", ProductName = "P4", ProductCategory = "Oranges"},
+                new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Apples"},
+                new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Apples"},
+                new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Plums"},
+                new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Oranges"},
             }).AsQueryable<Product>());
 
             NavigationMenuViewComponent target =
@@ -42,8 +42,8 @@ namespace Bacchus.Tests {
             string categoryToSelect = "Apples";
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[] {
-                new Product {ProductID = "1", ProductName = "P1", ProductCategory = "Apples"},
-                new Product {ProductID = "4", ProductName = "P2", ProductCategory = "Oranges"},
+                new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Apples"},
+                new Product {ProductId = "4", ProductName = "P2", ProductCategory = "Oranges"},
             }).AsQueryable<Product>());
             NavigationMenuViewComponent target =
                 new NavigationMenuViewComponent(mock.Object);

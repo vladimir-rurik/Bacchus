@@ -18,11 +18,11 @@ namespace Bacchus.Tests {
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
 			Mock<IUptimeAuctionApiClient> mock_http_client = new Mock<IUptimeAuctionApiClient>();
             mock.Setup(m => m.Products).Returns((new Product[] {
-                new Product {ProductID = "1", ProductName = "P1"},
-                new Product {ProductID = "2", ProductName = "P2"},
-                new Product {ProductID = "3", ProductName = "P3"},
-                new Product {ProductID = "4", ProductName = "P4"},
-                new Product {ProductID = "5", ProductName = "P5"}
+                new Product {ProductId = "1", ProductName = "P1"},
+                new Product {ProductId = "2", ProductName = "P2"},
+                new Product {ProductId = "3", ProductName = "P3"},
+                new Product {ProductId = "4", ProductName = "P4"},
+                new Product {ProductId = "5", ProductName = "P5"}
             }).AsQueryable<Product>());
 
             ProductController controller = new ProductController(mock.Object, mock_http_client.Object);
@@ -45,11 +45,11 @@ namespace Bacchus.Tests {
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[] {
-				new Product {ProductID = "1", ProductName = "P1"},
-				new Product {ProductID = "2", ProductName = "P2"},
-				new Product {ProductID = "3", ProductName = "P3"},
-				new Product {ProductID = "4", ProductName = "P4"},
-				new Product {ProductID = "5", ProductName = "P5"}
+				new Product {ProductId = "1", ProductName = "P1"},
+				new Product {ProductId = "2", ProductName = "P2"},
+				new Product {ProductId = "3", ProductName = "P3"},
+				new Product {ProductId = "4", ProductName = "P4"},
+				new Product {ProductId = "5", ProductName = "P5"}
 			} ).AsQueryable<Product>());
 
             // Arrange
@@ -75,11 +75,11 @@ namespace Bacchus.Tests {
             // - create the mock repository
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[] {
-                new Product {ProductID = "1", ProductName = "P1", ProductCategory = "Cat1"},
-                new Product {ProductID = "2", ProductName = "P2", ProductCategory = "Cat2"},
-                new Product {ProductID = "3", ProductName = "P3", ProductCategory = "Cat1"},
-                new Product {ProductID = "4", ProductName = "P4", ProductCategory = "Cat2"},
-                new Product {ProductID = "5", ProductName = "P5", ProductCategory = "Cat3"}
+                new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Cat1"},
+                new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Cat2"},
+                new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Cat1"},
+                new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Cat2"},
+                new Product {ProductId = "5", ProductName = "P5", ProductCategory = "Cat3"}
             }).AsQueryable<Product>());
 
             // Arrange - create a controller and make the page size 3 items
@@ -102,11 +102,11 @@ namespace Bacchus.Tests {
             // Arrange
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns((new Product[] {
-				new Product {ProductID = "1", ProductName = "P1", ProductCategory = "Cat1"},
-				new Product {ProductID = "2", ProductName = "P2", ProductCategory = "Cat2"},
-				new Product {ProductID = "3", ProductName = "P3", ProductCategory = "Cat1"},
-				new Product {ProductID = "4", ProductName = "P4", ProductCategory = "Cat2"},
-				new Product {ProductID = "5", ProductName = "P5", ProductCategory = "Cat3"}
+				new Product {ProductId = "1", ProductName = "P1", ProductCategory = "Cat1"},
+				new Product {ProductId = "2", ProductName = "P2", ProductCategory = "Cat2"},
+				new Product {ProductId = "3", ProductName = "P3", ProductCategory = "Cat1"},
+				new Product {ProductId = "4", ProductName = "P4", ProductCategory = "Cat2"},
+				new Product {ProductId = "5", ProductName = "P5", ProductCategory = "Cat3"}
 			} ).AsQueryable<Product>());
 
             ProductController target = new ProductController(mock.Object);

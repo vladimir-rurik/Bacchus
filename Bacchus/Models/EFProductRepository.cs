@@ -24,7 +24,7 @@ namespace Bacchus.Models {
 		private void UpsertProduct( Product product )
 		{
 			Product dbEntry = _context.Products
-				.FirstOrDefault( p => p.ProductID == product.ProductID );
+				.FirstOrDefault( p => p.ProductId == product.ProductId );
 			if( dbEntry != null )
 			{
 				dbEntry.ProductName = product.ProductName;

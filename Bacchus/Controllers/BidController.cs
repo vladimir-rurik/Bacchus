@@ -16,7 +16,7 @@ namespace Bacchus.Controllers
 			_repository = repo;
 		}
 
-		public ViewResult PlaceBid( string ProductID, string ProductName )
+		public ViewResult PlaceBid( string ProductId, string ProductName )
         {
             return View( new Bid() { ProductName = ProductName } );
         }

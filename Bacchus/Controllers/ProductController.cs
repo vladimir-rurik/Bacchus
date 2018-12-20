@@ -12,7 +12,7 @@ namespace Bacchus.Controllers {
 		private readonly IUptimeAuctionApiClient _uptimeAuctionApiClient;
         private IProductRepository _repository;
 
-        public const int PAGESIZE = 4;
+        public int PAGESIZE = 4;
 
         public ProductController(IProductRepository repo, IUptimeAuctionApiClient uptimeAuctionApiClient) {
             _repository = repo;
@@ -29,7 +29,7 @@ namespace Bacchus.Controllers {
 			{
 				Products = _repository.Products
 					.Where( p => ( category == null || p.ProductCategory == category ) && p.BiddingEndDate > DateTime.Now.ToUniversalTime() )
-					.OrderBy( p => p.ProductID )
+					.OrderBy( p => p.ProductId )
 					.Skip( ( productPage - 1 ) * PAGESIZE )
 					.Take( PAGESIZE ),
 				PagingInfo = new PagingInfo

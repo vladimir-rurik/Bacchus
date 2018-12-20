@@ -17,15 +17,9 @@ namespace Bacchus.Models
 		public void SaveBid( Bid bid )
 		{
 			bid.BiddingDateTime = DateTime.Now.ToUniversalTime();
+			bid.BidderId = $"{bid.BidderFirstName}.{bid.BidderLastName}.{bid.BiddingDateTime.ToString("yyyyMMddHHmmss.fff")}";
 
-			if( _dbContext.Bids.Any( ac => ac.ProductId.Equals( bid.ProductId ) ) )
-			{
-				_dbContext.UpdateRange( bid );
-			}
-			else
-			{
-				_dbContext.AddRange( bid );
-			}
+			_dbContext.AddRange( bid );
 
 			_dbContext.SaveChanges();
 		}
