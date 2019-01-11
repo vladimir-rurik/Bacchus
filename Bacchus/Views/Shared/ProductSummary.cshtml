@@ -1,24 +1,34 @@
 ﻿@model Product
 
 <div class="card card-outline-primary m-1 p-1">
-    <div class="bg-faded p-1">
-        <h4>
-            @Model.ProductName
-            <span class="badge badge-pill badge-primary" style="float:right">
-                <small>@Model.BiddingEndDate.ToLocalTime().ToString( "dd/MM/yyyy HH:mm:ss" )</small>
-            </span>
-        </h4>
-    </div>
-    <form id="@Model.ProductId" asp-action="PlaceBid"
-          asp-controller="Bid" method="get">
-        <input type="hidden" asp-for="ProductId" />
-        <input type="hidden" asp-for="ProductName" />
-        <span class="card-text p-1">
-            @Model.ProductDescription
-            <button type="submit"
-                    class="btn btn-success btn-sm pull-right" style="float:right">
-                Place a bid
-            </button>
-        </span>
-    </form>
+	<div class="bg-faded p-1">
+		<h4>
+			@Model.ProductName
+			<span class="badge badge-pill badge-primary" style="float:right">
+				<small class="countdown">
+					<span id="days"></span> Day(s)
+					<span id="hours"></span> Hour(s)
+					<span id="minutes"></span> Minute(s)
+					<span id="seconds"></span> Second(s)
+				</small>
+			</span>
+		</h4>
+	</div>
+	<form id="@Model.ProductId" asp-action="PlaceBid"
+		  asp-controller="Bid" method="get">
+		<input type="hidden" asp-for="ProductId" />
+		<input type="hidden" asp-for="ProductName" />
+		<span class="card-text p-1">
+			@Model.ProductDescription
+			<button type="submit"
+					class="btn btn-success btn-sm pull-right" style="float:right">
+				Place a bid
+			</button>
+		</span>
+	</form>
 </div>
+<script>
+	(function () {
+		countdown("@Model.BiddingEndDate");
+	}());
+</script>
