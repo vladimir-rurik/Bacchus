@@ -10,6 +10,7 @@
 	setInterval(calculate, 1000);
 
 	function calculate() {
+
 		let startDate = new Date();
 
 		startDate = new Date(startDate.getUTCFullYear(),
@@ -33,10 +34,18 @@
 
 			seconds = parseInt(timeRemaining);
 
-			document.getElementById("days").innerHTML = parseInt(days, 10);
-			document.getElementById("hours").innerHTML = ("0" + hours).slice(-2);
-			document.getElementById("minutes").innerHTML = ("0" + minutes).slice(-2);
-			document.getElementById("seconds").innerHTML = ("0" + seconds).slice(-2);
+			document.querySelectorAll(".days").forEach(function (daysElement, index) {
+				daysElement.innerHTML = parseInt(days, 10);
+			});
+			document.querySelectorAll(".hours").forEach(function (hoursElement, index) {
+				hoursElement.innerHTML = ("0" + hours).slice(-2);
+			});
+			document.querySelectorAll(".minutes").forEach(function (minutesElement, index) {
+				minutesElement.innerHTML = ("0" + minutes).slice(-2);
+			});
+			document.querySelectorAll(".seconds").forEach(function (secondsElement, index) {
+				secondsElement.innerHTML = ("0" + seconds).slice(-2);
+			});
 		} else {
 			return;
 		}
