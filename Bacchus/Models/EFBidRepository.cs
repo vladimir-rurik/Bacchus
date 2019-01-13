@@ -16,7 +16,7 @@ namespace Bacchus.Models
 
 		public void SaveBid( Bid bid )
 		{
-			bid.BiddingDateTime = DateTime.Now.ToUniversalTime();
+			bid.BiddingDateTime = DateTime.UtcNow;
 			bid.BidderId = $"{bid.BidderFirstName}.{bid.BidderLastName}.{bid.BiddingDateTime.ToString("yyyyMMddHHmmss.fff")}";
 
 			_dbContext.AddRange( bid );

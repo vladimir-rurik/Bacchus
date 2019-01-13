@@ -32,5 +32,9 @@ namespace Bacchus.Models
 
 		[NotMapped]
 		public DateTime BiddingDateTime { get; set; }
+
+		[NotMapped]
+		[AssertThat( "BiddingEndDate > Now()", ErrorMessage = "This auction is outdated.")]
+		public DateTime BiddingEndDate { get; set; }
 	}
 }
