@@ -1,4 +1,4 @@
-﻿function countdown(endDateTime, endDateId) {
+﻿function countdown(endDateTime, productId) {
 	let days, hours, minutes, seconds;
 
 	let endDate = new Date(endDateTime).getTime();
@@ -34,12 +34,12 @@
 
 			seconds = parseInt(timeRemaining);
 
-			document.getElementById("days"+endDateId).innerHTML = parseInt(days, 10);
-			document.getElementById("hours"+endDateId).innerHTML = ("0" + hours).slice(-2);
-			document.getElementById("minutes"+endDateId).innerHTML = ("0" + minutes).slice(-2);
-			document.getElementById("seconds"+endDateId).innerHTML = ("0" + seconds).slice(-2);
+			document.getElementById("days"+productId).innerHTML = parseInt(days, 10);
+			document.getElementById("hours"+productId).innerHTML = ("0" + hours).slice(-2);
+			document.getElementById("minutes"+productId).innerHTML = ("0" + minutes).slice(-2);
+			document.getElementById("seconds"+productId).innerHTML = ("0" + seconds).slice(-2);
 		} else {
-			var elem = document.getElementById(endDateId);
+			var elem = document.getElementById(productId);
 			if( elem )
 				elem.parentNode.removeChild(elem);
 			return;
