@@ -1,15 +1,18 @@
 ﻿@model Product
+@{ 
+	string DateId = @Model.BiddingEndDate.ToString( "yyyyMMddHHmmss" );
+}
 
-<div class="card card-outline-primary m-1 p-1">
+<div id="@DateId" class="card card-outline-primary m-1 p-1">
 	<div class="bg-faded p-1">
 		<h4>
 			@Model.ProductName
 			<span class="badge badge-pill badge-primary" style="float:right">
 				<small class="countdown">
-					<span class="days"></span> Day(s)
-					<span class="hours"></span> Hour(s)
-					<span class="minutes"></span> Minute(s)
-					<span class="seconds"></span> Second(s)
+					<span id=@String.Format("days{0}",@DateId)></span> Day(s)
+					<span id=@String.Format("hours{0}",@DateId)></span> Hour(s)
+					<span id=@String.Format("minutes{0}",@DateId)></span> Minute(s)
+					<span id=@String.Format("seconds{0}",@DateId)></span> Second(s)
 				</small>
 			</span>
 		</h4>
@@ -29,6 +32,6 @@
 </div>
 <script>
 	(function () {
-		countdown("@Model.BiddingEndDate");
+		countdown("@Model.BiddingEndDate", "@DateId");
 	}());
 </script>

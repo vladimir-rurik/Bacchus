@@ -1,7 +1,7 @@
-﻿function countdown(endDate) {
+﻿function countdown(endDateTime, endDateId) {
 	let days, hours, minutes, seconds;
 
-	endDate = new Date(endDate).getTime();
+	let endDate = new Date(endDateTime).getTime();
 
 	if (isNaN(endDate)) {
 		return;
@@ -34,19 +34,14 @@
 
 			seconds = parseInt(timeRemaining);
 
-			document.querySelectorAll(".days").forEach(function (daysElement, index) {
-				daysElement.innerHTML = parseInt(days, 10);
-			});
-			document.querySelectorAll(".hours").forEach(function (hoursElement, index) {
-				hoursElement.innerHTML = ("0" + hours).slice(-2);
-			});
-			document.querySelectorAll(".minutes").forEach(function (minutesElement, index) {
-				minutesElement.innerHTML = ("0" + minutes).slice(-2);
-			});
-			document.querySelectorAll(".seconds").forEach(function (secondsElement, index) {
-				secondsElement.innerHTML = ("0" + seconds).slice(-2);
-			});
+			document.getElementById("days"+endDateId).innerHTML = parseInt(days, 10);
+			document.getElementById("hours"+endDateId).innerHTML = ("0" + hours).slice(-2);
+			document.getElementById("minutes"+endDateId).innerHTML = ("0" + minutes).slice(-2);
+			document.getElementById("seconds"+endDateId).innerHTML = ("0" + seconds).slice(-2);
 		} else {
+			var elem = document.getElementById(endDateId);
+			if( elem )
+				elem.parentNode.removeChild(elem);
 			return;
 		}
 	}
